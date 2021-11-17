@@ -2,6 +2,7 @@
   <div id="app">
     <div class="nav">
       <router-link to="/">MainPage</router-link>
+      <router-link to="/list">ListPage</router-link>
       <router-link to="/basket">BasketPage</router-link>
     </div>
     <router-view />
@@ -11,6 +12,14 @@
 <script>
 export default {
   name: "App",
+  created() {
+    this.getProducts();
+  },
+  methods: {
+    getProducts() {
+      this.$store.dispatch("setProducts");
+    },
+  },
 };
 </script>
 

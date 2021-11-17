@@ -1,14 +1,17 @@
 <template>
-  <div class="product-list">
+  <div class="basket-page">
     <BasketTotal :price="getPrice()" :number="getNumber()" />
-    <ProductCardForBasket
-      v-for="item in products"
-      :key="item.id"
-      :dish="item.dish"
-      :image="item.image"
-      :price="item.price"
-      :number="item.number"
-    />
+    <div class="product-list">
+      <ProductCardForBasket
+        v-for="item in products"
+        :key="item.id"
+        :dish="item.dish"
+        :image="item.image"
+        :price="item.price"
+        :number="item.number"
+        :id="item.id"
+      />
+    </div>
   </div>
 </template>
 
@@ -39,7 +42,9 @@ export default {
       }, 0);
     },
     getNumber() {
-      return this.products.length;
+      return this.products.reduce(function (sum, current) {
+        return sum + Number(current.number);
+      }, 0);
     },
   },
 };

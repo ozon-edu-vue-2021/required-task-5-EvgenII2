@@ -7,23 +7,33 @@ export default new Vuex.Store({
   state: () => ({
     productList: [],
     productListInBasket: [],
+    productListLiked: [],
   }),
   getters: {
     getProductList: (state) => {
-      console.log("get");
       return state.productList;
     },
     getProductListInBasket: (state) => {
-      console.log("get");
       return state.productListInBasket;
     },
   },
   mutations: {
     pushProductInBasket: (state, payload) => {
-      state.productListInBasket.push(payload);
+      if (
+        state.productListInBasket.filter((pr) => {
+          return pr.id === payload.id;
+        }).length > 0
+      ) {
+        state.productListInBasket.forEach((pr) => {
+          if (pr.id === payload.id) {
+            pr.number += payload.number;
+          }
+        });
+      } else {
+        state.productListInBasket.push(payload);
+      }
     },
-    getProductsFromApi: (state, payload) => {
-      console.log("mut");
+    setProductsFromApi(state) {
       fetch("https://random-data-api.com/api/food/random_food?size=30")
         .then((res) => {
           if (res.ok) {
@@ -31,18 +41,17 @@ export default new Vuex.Store({
           }
           return Promise.reject(new Error(`Ошибка: ${res.status}`));
         })
-        .then((res) => (state.productList = res))
+        .then((res) => {
+          state.productList = res;
+        })
         .catch((err) => console.log(err));
-      payload;
     },
   },
   actions: {
-    getProducts: (context) => {
-      console.log("act");
-      context.commit("getProductsFromApi");
+    setProducts: (context) => {
+      context.commit("setProductsFromApi");
     },
     pushProduct: (context, payload) => {
-      console.log("act");
       context.commit("pushProductInBasket", payload);
     },
   },

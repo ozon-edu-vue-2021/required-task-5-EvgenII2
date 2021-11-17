@@ -7,8 +7,8 @@
       :ingredient="item.ingredient"
       :measurement="item.measurement"
       :image="images[index]"
+      :id="item.id"
       :price="getRandomInteger()"
-      class="legend__item"
     />
   </div>
 </template>
@@ -27,22 +27,13 @@ export default {
     };
   },
   created() {
-    const illustrations = require.context(
-      "@/assets/images",
-      true,
-      /^.*\.webp$/
-    );
-    this.images = illustrations.keys().map((im) => im.slice(2));
+    const pictures = require.context("@/assets/images", true, /^.*\.webp$/);
+    this.images = pictures.keys().map((im) => im.slice(2));
     this.images = this.images.concat(this.images).concat(this.images);
-    console.log(this.images);
-    this.getProducts();
+
+    this.products = this.$store.getters.getProductList;
   },
   methods: {
-    getProducts() {
-      this.$store.dispatch("getProducts").then(() => {
-        this.products = this.$store.getters.getProductList;
-      });
-    },
     getRandomInteger() {
       return Math.round(Math.random() * 1000);
     },

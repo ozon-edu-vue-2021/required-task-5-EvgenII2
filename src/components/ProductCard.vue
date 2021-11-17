@@ -3,11 +3,13 @@
     <img class="product__image" :src="require(`../assets/images/${image}`)" />
     <div class="product__desc">
       <h3 class="product__dish">{{ dish }}</h3>
-      <div class="product__ingredient">{{ ingredient }}</div>
-      <div class="product__measurement">{{ measurement }}</div>
-      <div class="product__price">{{ price }}</div>
+      <div class="product__ingredient">ID: {{ id }}</div>
+      <div class="product__ingredient">Ингридиенты: {{ ingredient }}</div>
+      <div class="product__measurement">Измерение: {{ measurement }}</div>
+      <div class="product__price">Цена за единицу: {{ price }}</div>
     </div>
     <div class="product__button-wrapper">
+      <p>Количество</p>
       <input
         class="product__input"
         type="number"
@@ -32,7 +34,7 @@ export default {
     },
     ingredient: {
       type: String,
-      required: "-",
+      default: "-",
     },
     measurement: {
       type: String,
@@ -46,6 +48,10 @@ export default {
       type: Number,
       default: 1,
     },
+    id: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -54,12 +60,12 @@ export default {
   },
   methods: {
     onClick() {
-      console.log(this.number);
       this.$store.dispatch("pushProduct", {
         dish: this.dish,
         image: this.image,
         price: this.price,
-        number: this.number,
+        number: Number(this.number),
+        id: this.id,
       });
     },
   },
@@ -67,16 +73,27 @@ export default {
 </script>
 
 <style scoped>
+.product {
+  width: 350px;
+  background-color: azure;
+}
 .product__image {
+  border-radius: 10px;
   width: 350px;
   aspect-ratio: 1/1;
 }
 .product__desc {
   margin-bottom: 10px;
+  padding-left: 20px;
 }
 .product__button-wrapper {
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  column-gap: 10px;
+}
+.product__input {
+  width: 10%;
 }
 </style>

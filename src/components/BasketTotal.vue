@@ -1,14 +1,12 @@
 <template>
   <div class="total">
-    <h3 class="total__products">{{ number }}</h3>
-    <div class="total__price">{{ price }}</div>
+    <h3 class="total__products">Количество товаров: {{ number }} шт.</h3>
+    <div class="total__price">Общая цена: {{ price }} руб.</div>
     <button class="total__button" @click="onClickOrder">Оформить заказ</button>
-    <button class="total__button" @click="onClick">Очистить корзину</button>
   </div>
 </template>
 
 <script>
-// import f from '../assets/images'
 export default {
   props: {
     price: {
@@ -21,12 +19,9 @@ export default {
     },
   },
   methods: {
-    onClick() {
-      console.log(this.number);
-    },
     onClickOrder() {
       alert(
-        `Куплено ${this.number} товаров на стоимость ${this.number} рублей`
+        `Куплено ${this.number} тов. на общую стоимость ${this.price} руб.`
       );
     },
   },
@@ -35,12 +30,31 @@ export default {
 
 <style scoped>
 .total {
-  width: 350px;
-  height: 350px;
+  margin-top: 20px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   border: 1px solid red;
+  border-radius: 30px;
+  row-gap: 20px;
+}
+.total__products {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+.total__price {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+.total__button {
+  margin: 0;
+  width: 20%;
+  padding: 5px;
+  font-size: 18px;
+  cursor: pointer;
 }
 </style>

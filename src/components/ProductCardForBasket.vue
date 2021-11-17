@@ -3,13 +3,9 @@
     <img class="product__image" :src="require(`../assets/images/${image}`)" />
     <div class="product__desc">
       <h3 class="product__dish">{{ dish }}</h3>
-      <div class="product__price">{{ price }}</div>
-    </div>
-    <div class="product__button-wrapper">
-      <input class="product__input" type="number" min="1" v-model="number" />
-      <button class="product__button" @click="onClick">
-        Удалить из корзины
-      </button>
+      <div class="product__ingredient">ID: {{ id }}</div>
+      <div class="product__price">Цена: {{ price }}</div>
+      <div class="product__number">Количесвто: {{ number }}</div>
     </div>
   </div>
 </template>
@@ -19,6 +15,10 @@ export default {
   props: {
     dish: {
       type: String,
+      required: true,
+    },
+    id: {
+      type: Number,
       required: true,
     },
     image: {
@@ -40,6 +40,8 @@ export default {
         dish: this.dish,
         image: this.image,
         price: this.price,
+        id: this.id,
+        number: this.number,
       });
     },
   },

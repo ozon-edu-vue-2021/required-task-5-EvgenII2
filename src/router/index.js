@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import MainPage from "../views/MainPage";
+import MainPage from "../views/ListPage";
 import BasketPage from "../views/BasketPage";
 
 Vue.use(Router);
@@ -10,10 +10,10 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: "/",
+      path: "/list",
       component: MainPage,
       meta: {
-        title: "Главная",
+        title: "Товары",
       },
     },
     {
