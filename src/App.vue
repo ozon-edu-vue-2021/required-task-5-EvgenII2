@@ -1,15 +1,16 @@
 <template>
   <div id="app">
+    <div class="nav">
+      <router-link to="/">MainPage</router-link>
+      <router-link to="/basket">BasketPage</router-link>
+    </div>
+    <router-view />
   </div>
 </template>
 
 <script>
-
 export default {
   name: "App",
-  components: {
-    Form,
-  },
 };
 </script>
 
@@ -30,5 +31,12 @@ body,
 
 * {
   box-sizing: border-box;
+}
+.nav {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  column-gap: 50px;
 }
 </style>
