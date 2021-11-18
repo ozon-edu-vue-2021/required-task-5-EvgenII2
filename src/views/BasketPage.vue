@@ -1,6 +1,6 @@
 <template>
   <div class="basket-page">
-    <BasketTotal :price="getPrice()" :number="getNumber()" />
+    <BasketTotal :price="getPrice()" :numbers="getNumber()" />
     <div class="product-list">
       <ProductCardForBasket
         v-for="item in products"
@@ -8,7 +8,7 @@
         :dish="item.dish"
         :image="item.image"
         :price="item.price"
-        :number="item.number"
+        :numbers="item.numbers"
         :id="item.id"
       />
     </div>
@@ -38,12 +38,12 @@ export default {
     },
     getPrice() {
       return this.products.reduce(function (sum, current) {
-        return sum + current.price * current.number;
+        return sum + current.price * current.numbers;
       }, 0);
     },
     getNumber() {
       return this.products.reduce(function (sum, current) {
-        return sum + Number(current.number);
+        return sum + Number(current.numbers);
       }, 0);
     },
   },

@@ -1,38 +1,31 @@
 <template>
   <div class="product-list">
-    <ProductCard
-      v-for="item in products"
+    <LikedCard
+      v-for="item in productsLiked"
       :key="item.id"
       :dish="item.dish"
-      :ingredient="item.ingredient"
-      :measurement="item.measurement"
       :image="item.image"
-      :id="item.id"
-      :isLike="item.isLike"
       :price="item.price"
+      :isLike="item.isLike"
+      :id="item.id"
     />
   </div>
 </template>
 
 <script>
-import ProductCard from "../components/ProductCard.vue";
+import LikedCard from "../components/LikedCard.vue";
 
 export default {
   components: {
-    ProductCard,
+    LikedCard,
   },
   data() {
     return {
-      products: [],
+      productsLiked: [],
     };
   },
   created() {
-    this.products = this.$store.getters.getProductList;
-  },
-  methods: {
-    getRandomInteger() {
-      return Math.round(Math.random() * 1000);
-    },
+    this.productsLiked = this.$store.getters.getProductList;
   },
 };
 </script>

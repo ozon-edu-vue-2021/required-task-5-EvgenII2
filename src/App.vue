@@ -4,6 +4,7 @@
       <router-link to="/">MainPage</router-link>
       <router-link to="/list">ListPage</router-link>
       <router-link to="/basket">BasketPage</router-link>
+      <router-link to="/liked">LikedPage</router-link>
     </div>
     <router-view />
   </div>
@@ -13,11 +14,17 @@
 export default {
   name: "App",
   created() {
-    this.getProducts();
+    const pictures = require.context("@/assets/images", true, /^.*\.webp$/);
+    let images = pictures.keys().map((im) => im.slice(2));
+    images = images.concat(images).concat(images);
+    this.getProducts(images);
   },
   methods: {
-    getProducts() {
-      this.$store.dispatch("setProducts");
+    getProducts(payload) {
+      this.$store.dispatch("setProducts", payload);
+    },
+    getRandomInteger() {
+      return Math.round(Math.random() * 1000);
     },
   },
 };

@@ -1,25 +1,16 @@
 <template>
-  <div class="product">
+  <div class="product" v-if="liked">
     <img class="product__image" :src="require(`../assets/images/${image}`)" />
     <div class="product__desc">
       <h3 class="product__dish">{{ dish }}</h3>
       <div class="product__ingredient">ID: {{ id }}</div>
-      <div class="product__ingredient">Ингридиенты: {{ ingredient }}</div>
-      <div class="product__measurement">Измерение: {{ measurement }}</div>
       <div class="product__price">Цена за единицу: {{ price }}</div>
       <input
         type="checkbox"
-        v-model="likedData"
+        v-model="liked"
         class="product__checkbox-like"
         @change="onChange"
       />
-    </div>
-    <div class="product__button-wrapper">
-      <p>Количество</p>
-      <input class="product__input" type="number" min="1" v-model="numbers" />
-      <button class="product__button" @click="onClick">
-        Добавить в корзину
-      </button>
     </div>
   </div>
 </template>
@@ -30,14 +21,6 @@ export default {
     dish: {
       type: String,
       required: true,
-    },
-    ingredient: {
-      type: String,
-      default: "-",
-    },
-    measurement: {
-      type: String,
-      default: "0",
     },
     image: {
       type: String,
@@ -56,28 +39,13 @@ export default {
       default: false,
     },
   },
-  mounted() {
-    console.log(this.isLike);
-  },
   data() {
     return {
-      numbers: 1,
-      likedData: this.isLike,
+      liked: this.isLike,
     };
   },
   methods: {
-    onClick() {
-      this.$store.dispatch("pushProduct", {
-        dish: this.dish,
-        image: this.image,
-        price: this.price,
-        isLike: this.likedData,
-        numbers: Number(this.numbers),
-        id: this.id,
-      });
-    },
     onChange() {
-      console.log(this.likedData);
       this.$store.dispatch("togleLike", {
         id: this.id,
       });
@@ -88,18 +56,29 @@ export default {
 
 <style scoped>
 .product {
-  width: 350px;
-  background-color: rgb(164, 165, 167);
+  padding: 20px;
+  width: 250px;
   padding: 20px;
   border-radius: 15px;
+  background-color: rgb(146, 152, 231);
+}
+.product__dish {
+  padding: 0;
+  margin: 0;
 }
 .product__image {
+  width: 210px;
   border-radius: 10px;
-  width: 310px;
   aspect-ratio: 1/1;
 }
 .product__desc {
   margin-bottom: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 10px;
 }
 .product__button-wrapper {
   display: flex;
